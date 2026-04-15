@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness — Sumit</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Fitness">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0a; --surface:#111; --border:#1e1e1e;
+    --yoga:#c8f55a; --train:#ff6b35; --run:#38bdf8; --other:#a78bfa;
+    --text:#f0f0f0; --muted:#555; --card:#141414;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+  .app{max-width:680px;margin:0 auto;padding:0 0 80px;}
+
+  header{padding:40px 24px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-end;justify-content:space-between;}
+  .header-left h1{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:2px;line-height:1;}
+  .header-left .sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:4px;font-family:'DM Mono',monospace;}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+  #updatedAt{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-align:right;letter-spacing:1px;line-height:1.6;}
+
+  .refresh-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:2px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
+  .refresh-btn:hover{border-color:var(--yoga);color:var(--yoga);}
+  .refresh-btn:disabled{opacity:.4;cursor:not-allowed;}
+  .spinner{display:none;width:10px;height:10px;border:1.5px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .6s linear infinite;}
+  .loading .spinner{display:block;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .stats{display:flex;gap:1px;background:var(--border);border-bottom:1px solid var(--border);}
+  .stat{flex:1;background:var(--surface);padding:16px 10px;text-align:center;}
+  .stat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;}
+  .stat-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:2px;font-family:'DM Mono',monospace;}
+
+  .filters{display:flex;gap:8px;padding:20px 24px 0;flex-wrap:wrap;}
+  .fbtn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:2px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;cursor:pointer;transition:all .15s;}
+  .fbtn.active,.fbtn:hover{border-color:var(--text);color:var(--text);}
+  .fbtn[data-t="yoga"].active{border-color:var(--yoga);color:var(--yoga);}
+  .fbtn[data-t="training"].active{border-color:var(--train);color:var(--train);}
+  .fbtn[data-t="run"].active{border-color:var(--run);color:var(--run);}
+  .fbtn[data-t="other"].active{border-color:var(--other);color:var(--other);}
+
+  .day-group{padding:24px 24px 0;}
+  .day-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+  .day-label::after{content:'';flex:1;height:1px;background:var(--border);}
+  .today-label{color:var(--yoga)!important;}
+
+  .ecard{background:var(--card);border:1px solid var(--border);border-left:3px solid transparent;padding:16px 18px;margin-bottom:8px;display:flex;align-items:center;gap:16px;transition:background .15s,transform .15s;animation:slideIn .3s ease forwards;opacity:0;}
+  .ecard:hover{background:#191919;transform:translateX(2px);}
+  .ecard[data-t="yoga"]{border-left-color:var(--yoga);}
+  .ecard[data-t="training"]{border-left-color:var(--train);}
+  .ecard[data-t="run"]{border-left-color:var(--run);}
+  .ecard[data-t="other"]{border-left-color:var(--other);}
+  .ecard.past{opacity:.32!important;}
+  @keyframes slideIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  .etime{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);min-width:42px;text-align:right;line-height:1.5;}
+  .etime .hr{color:var(--text);font-size:14px;font-weight:500;}
+  .ediv{width:1px;height:32px;background:var(--border);flex-shrink:0;}
+  .einfo{flex:1;min-width:0;}
+  .ename{font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2;}
+  .emeta{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:1px;flex-shrink:0;}
+  .pill-yoga{background:rgba(200,245,90,.1);color:var(--yoga);}
+  .pill-training{background:rgba(255,107,53,.1);color:var(--train);}
+  .pill-run{background:rgba(56,189,248,.1);color:var(--run);}
+  .pill-other{background:rgba(167,139,250,.1);color:var(--other);}
+
+  .empty{padding:48px 24px;text-align:center;color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;}
+  .err{margin:16px 24px 0;padding:10px 14px;background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.25);border-radius:2px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--train);text-transform:uppercase;text-align:center;display:none;}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="header-left">
+      <h1>FITNESS</h1>
+      <div class="sub">Sumit's Training Calendar</div>
+    </div>
+    <div class="header-right">
+      <div id="updatedAt">—</div>
+      <button class="refresh-btn" id="refreshBtn" onclick="load()">
+        <div class="spinner"></div><span>↺ Refresh</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="sTotal" style="color:var(--yoga)">—</div><div class="stat-label">This Week</div></div>
+    <div class="stat"><div class="stat-num" id="sYoga"  style="color:var(--yoga)">—</div><div class="stat-label">Yoga</div></div>
+    <div class="stat"><div class="stat-num" id="sTrain" style="color:var(--train)">—</div><div class="stat-label">Training</div></div>
+    <div class="stat"><div class="stat-num" id="sRun"   style="color:var(--run)">—</div><div class="stat-label">Runs</div></div>
+  </div>
+
+  <div class="filters">
+    <button class="fbtn active" data-t="all">All</button>
+    <button class="fbtn" data-t="yoga">🧘 Yoga</button>
+    <button class="fbtn" data-t="training">💪 Training</button>
+    <button class="fbtn" data-t="run">🏃 Run</button>
+    <button class="fbtn" data-t="other">+ Other</button>
+  </div>
+
+  <div id="err" class="err">⚠ Could not load calendar — check your connection and try again</div>
+  <div id="content"><div class="empty">Loading…</div></div>
+</div>
+
+<script>
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const ICAL_URL = 'https://calendar.google.com/calendar/ical/sumit.nurpuri%40gmail.com/private-23166dd9b8df689e78b827312da951f0/basic.ics';
+const PROXY    = 'https://corsproxy.io/?';
+const DAYS_AHEAD = 21;
+
+// Fitness keywords
+const FITNESS_RE = /yoga|yin|hatha|vinyasa|core|grounding|healing|dynamic|flow|pilates|llyon|train|gym|weights|functional|lift|strength|hiit|cardio|run|jog|5k|10k|marathon|sprint|reformer/i;
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let EVENTS = [], activeFilter = 'all';
+
+// ─── iCAL PARSER ─────────────────────────────────────────────────────────────
+function parseIcal(text) {
+  // Unfold lines
+  text = text.replace(/\r\n[ \t]/g, '').replace(/\r/g, '');
+  const events = [];
+  const blocks = text.split('BEGIN:VEVENT');
+  blocks.shift();
+
+  for (const block of blocks) {
+    const get = key => {
+      const m = block.match(new RegExp(key + '(?:;[^:]*)?:(.+)', 'i'));
+      return m ? m[1].trim() : '';
+    };
+
+    const summary  = get('SUMMARY').replace(/\\,/g, ',').replace(/\\n/g, ' ');
+    const location = get('LOCATION').replace(/\\,/g, ',');
+    const dtstart  = get('DTSTART');
+    const dtend    = get('DTEND');
+
+    if (!summary || !dtstart) continue;
+    if (!FITNESS_RE.test(summary)) continue;
+
+    const start = parseIcalDate(dtstart);
+    const end   = parseIcalDate(dtend || dtstart);
+    if (!start) continue;
+
+    // Only show upcoming events within window
+    const now = new Date();
+    const cutoff = new Date(); cutoff.setDate(now.getDate() + DAYS_AHEAD);
+    if (start < now - 3600000 || start > cutoff) continue; // allow 1hr grace for past
+
+    events.push({ summary: cleanSummary(summary), teacher: extractTeacher(summary), location: cleanLocation(location), type: classify(summary), start: start.toISOString(), end: end.toISOString() });
+  }
+
+  return events.sort((a,b) => new Date(a.start) - new Date(b.start));
+}
+
+function parseIcalDate(s) {
+  if (!s) return null;
+  // TZID format: 20260416T170000 or with Z
+  s = s.replace(/[TZ]/g, match => match === 'T' ? 'T' : '');
+  const m = s.match(/(\d{4})(\d{2})(\d{2})T?(\d{2})?(\d{2})?(\d{2})?/);
+  if (!m) return null;
+  const [,y,mo,d,h='00',mi='00',sec='00'] = m;
+  // Parse as local Singapore time if no Z
+  return new Date(`${y}-${mo}-${d}T${h}:${mi}:${sec}+08:00`);
+}
+
+function classify(s) {
+  s = s.toLowerCase();
+  if (/yoga|yin|hatha|vinyasa|core|grounding|healing|dynamic|flow|pilates/.test(s)) return 'yoga';
+  if (/run|jog|5k|10k|marathon|sprint/.test(s)) return 'run';
+  if (/llyon|train|gym|weights|functional|lift|strength|hiit|cardio/.test(s)) return 'training';
+  return 'other';
+}
+
+function extractTeacher(s) {
+  const m = s.match(/teacher[:\s]+(.+)/i);
+  return m ? m[1].trim() : '';
+}
+
+function cleanSummary(s) {
+  return s.replace(/\s*teacher[:\s].+/i, '').trim();
+}
+
+function cleanLocation(s) {
+  return s.replace(/^yoga\s*[-–]\s*/i, '').replace(/,.*/, '').trim();
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+const PILL_LABEL = { yoga:'Yoga', training:'Train', run:'Run', other:'Other' };
+
+function fmt(iso) {
+  return new Date(iso).toLocaleTimeString('en-SG', { hour:'numeric', minute:'2-digit', hour12:true });
+}
+
+function dayKey(iso) {
+  return new Date(iso).toLocaleDateString('en-CA', { timeZone:'Asia/Singapore' });
+}
+
+function dayLabel(key) {
+  const [y,m,d] = key.split('-').map(Number);
+  const ev = new Date(y, m-1, d);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const tom = new Date(today); tom.setDate(today.getDate()+1);
+  if (ev.getTime()===today.getTime()) return 'Today';
+  if (ev.getTime()===tom.getTime()) return 'Tomorrow';
+  return ev.toLocaleDateString('en-SG', { weekday:'long', day:'numeric', month:'short' });
+}
+
+function isToday(key) {
+  return key === new Date().toLocaleDateString('en-CA', { timeZone:'Asia/Singapore' });
+}
+
+function isPast(iso) { return new Date(iso) < new Date(); }
+
+function updateStats() {
+  const wEnd = new Date(); wEnd.setDate(wEnd.getDate()+7);
+  const w = EVENTS.filter(e => new Date(e.start) <= wEnd);
+  document.getElementById('sTotal').textContent = w.length;
+  document.getElementById('sYoga').textContent  = w.filter(e=>e.type==='yoga').length;
+  document.getElementById('sTrain').textContent = w.filter(e=>e.type==='training').length;
+  document.getElementById('sRun').textContent   = w.filter(e=>e.type==='run').length;
+}
+
+function render() {
+  const filtered = activeFilter==='all' ? EVENTS : EVENTS.filter(e=>e.type===activeFilter);
+  const el = document.getElementById('content');
+  if (!filtered.length) { el.innerHTML = '<div class="empty">No sessions found</div>'; return; }
+
+  const groups = {};
+  filtered.forEach(e => { const k=dayKey(e.start); if(!groups[k]) groups[k]=[]; groups[k].push(e); });
+
+  let html = '';
+  Object.entries(groups).sort(([a],[b])=>a.localeCompare(b)).forEach(([day,evs]) => {
+    html += `<div class="day-group"><div class="day-label ${isToday(day)?'today-label':''}">${dayLabel(day)}</div>`;
+    evs.forEach((e,i) => {
+      const sf=fmt(e.start), [time,ampm]=sf.split(' ');
+      const meta=[e.teacher,e.location].filter(Boolean).join(' · ');
+      html += `<div class="ecard ${isPast(e.end)?'past':''}" data-t="${e.type}" style="animation-delay:${i*.07}s">
+        <div class="etime"><div class="hr">${time}</div><div>${ampm||''}</div></div>
+        <div class="ediv"></div>
+        <div class="einfo"><div class="ename">${e.summary}</div><div class="emeta">${meta}</div></div>
+        <div class="pill pill-${e.type}">${PILL_LABEL[e.type]}</div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+// ─── LOAD ─────────────────────────────────────────────────────────────────────
+async function load() {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('loading'); btn.disabled = true;
+  document.getElementById('err').style.display = 'none';
+
+  try {
+    const res  = await fetch(PROXY + encodeURIComponent(ICAL_URL));
+    if (!res.ok) throw new Error('fetch failed');
+    const text = await res.text();
+
+    EVENTS = parseIcal(text);
+    updateStats();
+    render();
+
+    const now = new Date();
+    document.getElementById('updatedAt').textContent =
+      `Live · ${now.toLocaleDateString('en-SG',{day:'numeric',month:'short'})} ${now.toLocaleTimeString('en-SG',{hour:'numeric',minute:'2-digit',hour12:true})}`;
+
+  } catch(e) {
+    console.error(e);
+    document.getElementById('err').style.display = 'block';
+    document.getElementById('content').innerHTML = '<div class="empty">Could not load — tap ↺ to retry</div>';
+  } finally {
+    btn.classList.remove('loading'); btn.disabled = false;
+  }
+}
+
+// Filter buttons
+document.querySelectorAll('.fbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.t;
+    render();
+  });
+});
+
+// Auto-load on open
+load();
+</script>
+</body>
+</html>
