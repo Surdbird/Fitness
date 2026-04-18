@@ -1,0 +1,29 @@
+{
+  "updated": "2026-04-18T15:35:56.602653+08:00",
+  "events": [
+    {
+      "summary": "Dynamic: Core",
+      "teacher": "Nirbhay Singh",
+      "type": "yoga",
+      "start": "2026-04-19T09:00:00+08:00",
+      "end": "2026-04-19T10:00:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Grounding: Hatha",
+      "teacher": "Niru Muthukrishnan",
+      "type": "yoga",
+      "start": "2026-04-20T11:45:00+08:00",
+      "end": "2026-04-20T12:30:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Healing: Yoga Therapy",
+      "teacher": "Arun Rana",
+      "type": "yoga",
+      "start": "2026-04-21T09:45:00+08:00",
+      "end": "2026-04-21T10:45:00+08:00",
+      "location": "Asia Square Tower 1"
+    }
+  ]
+}
