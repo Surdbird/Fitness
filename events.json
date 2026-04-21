@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-21T11:28:32.993083+08:00",
+  "updated": "2026-04-21T16:03:41.631354+08:00",
   "events": [
     {
       "summary": "Dynamic: Core",
@@ -7,6 +7,30 @@
       "type": "yoga",
       "start": "2026-04-22T12:00:00+08:00",
       "end": "2026-04-22T13:00:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Grounding: Hatha",
+      "teacher": "Hee Boon Tan",
+      "type": "yoga",
+      "start": "2026-04-23T10:30:00+08:00",
+      "end": "2026-04-23T11:30:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Grounding: Hatha",
+      "teacher": "Inder S.",
+      "type": "yoga",
+      "start": "2026-04-24T12:45:00+08:00",
+      "end": "2026-04-24T13:45:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Dynamic: Core",
+      "teacher": "Nirbhay Singh",
+      "type": "yoga",
+      "start": "2026-04-26T09:00:00+08:00",
+      "end": "2026-04-26T10:00:00+08:00",
       "location": "Asia Square Tower 1"
     }
   ]
