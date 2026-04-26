@@ -1,22 +1,6 @@
 {
-  "updated": "2026-04-26T03:04:07.616605+08:00",
+  "updated": "2026-04-26T11:39:07.736857+08:00",
   "events": [
-    {
-      "summary": "Run",
-      "teacher": "",
-      "type": "run",
-      "start": "2026-04-26T07:00:00+08:00",
-      "end": "2026-04-26T08:00:00+08:00",
-      "location": ""
-    },
-    {
-      "summary": "Dynamic: Core",
-      "teacher": "Nirbhay Singh",
-      "type": "yoga",
-      "start": "2026-04-26T09:00:00+08:00",
-      "end": "2026-04-26T10:00:00+08:00",
-      "location": "Asia Square Tower 1"
-    },
     {
       "summary": "Grounding: Hatha",
       "teacher": "Niru Muthukrishnan",
