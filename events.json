@@ -1,4 +1,13 @@
 {
-  "updated": "2026-05-09T03:27:27.733086+08:00",
-  "events": []
+  "updated": "2026-05-09T11:39:21.826955+08:00",
+  "events": [
+    {
+      "summary": "Healing: Yoga Therapy",
+      "teacher": "Jayan Muralidharan",
+      "type": "yoga",
+      "start": "2026-05-10T08:30:00+08:00",
+      "end": "2026-05-10T09:30:00+08:00",
+      "location": "Asia Square Tower 1"
+    }
+  ]
 }
