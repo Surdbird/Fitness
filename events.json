@@ -1,4 +1,13 @@
 {
-  "updated": "2026-05-18T18:18:10.491142+08:00",
-  "events": []
+  "updated": "2026-05-18T23:48:01.507329+08:00",
+  "events": [
+    {
+      "summary": "Healing: Yoga Therapy",
+      "teacher": "Inder S.",
+      "type": "yoga",
+      "start": "2026-05-19T09:45:00+08:00",
+      "end": "2026-05-19T10:45:00+08:00",
+      "location": "Asia Square Tower 1"
+    }
+  ]
 }
