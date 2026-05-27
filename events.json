@@ -1,4 +1,13 @@
 {
-  "updated": "2026-05-27T04:20:59.335771+08:00",
-  "events": []
+  "updated": "2026-05-27T12:23:45.066450+08:00",
+  "events": [
+    {
+      "summary": "Dynamic: Core",
+      "teacher": "Niru Muthukrishnan",
+      "type": "yoga",
+      "start": "2026-05-27T12:30:00+08:00",
+      "end": "2026-05-27T13:30:00+08:00",
+      "location": "Asia Square Tower 1"
+    }
+  ]
 }
