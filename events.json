@@ -1,4 +1,21 @@
 {
-  "updated": "2026-08-01T03:43:12.663983+08:00",
-  "events": []
+  "updated": "2026-08-01T11:32:52.599206+08:00",
+  "events": [
+    {
+      "summary": "Healing: Pranayama",
+      "teacher": "Niru Muthukrishnan",
+      "type": "yoga",
+      "start": "2026-08-05T07:00:00+08:00",
+      "end": "2026-08-05T07:45:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Healing: Yin Yoga",
+      "teacher": "Yun Ng",
+      "type": "yoga",
+      "start": "2026-08-06T12:30:00+08:00",
+      "end": "2026-08-06T13:30:00+08:00",
+      "location": "Asia Square Tower 1"
+    }
+  ]
 }
