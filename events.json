@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-06T18:41:28.426721+08:00",
+  "updated": "2026-09-06T23:17:48.625761+08:00",
   "events": [
     {
       "summary": "Grounding: Hatha",
@@ -7,6 +7,30 @@
       "type": "yoga",
       "start": "2026-09-07T12:00:00+08:00",
       "end": "2026-09-07T13:00:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Healing: Yoga Therapy",
+      "teacher": "Inder S.",
+      "type": "yoga",
+      "start": "2026-09-08T09:45:00+08:00",
+      "end": "2026-09-08T10:45:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Grounding: Hatha",
+      "teacher": "Yuna Yu",
+      "type": "yoga",
+      "start": "2026-09-10T12:00:00+08:00",
+      "end": "2026-09-10T13:00:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Grounding: Yin-Yang",
+      "teacher": "Inder S.",
+      "type": "yoga",
+      "start": "2026-09-11T10:15:00+08:00",
+      "end": "2026-09-11T11:15:00+08:00",
       "location": "Asia Square Tower 1"
     }
   ]
