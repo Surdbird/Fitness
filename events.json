@@ -1,14 +1,6 @@
 {
-  "updated": "2026-09-20T04:24:11.034549+08:00",
+  "updated": "2026-09-20T12:29:50.922762+08:00",
   "events": [
-    {
-      "summary": "Healing: Yin Yoga",
-      "teacher": "Jayan Muralidharan",
-      "type": "yoga",
-      "start": "2026-09-20T09:45:00+08:00",
-      "end": "2026-09-20T10:45:00+08:00",
-      "location": "Asia Square Tower 1"
-    },
     {
       "summary": "Grounding: Hatha",
       "teacher": "Yun Ng",
@@ -39,6 +31,14 @@
       "type": "yoga",
       "start": "2026-09-24T12:30:00+08:00",
       "end": "2026-09-24T13:30:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Grounding: Yin-Yang",
+      "teacher": "Inder S.",
+      "type": "yoga",
+      "start": "2026-09-25T10:15:00+08:00",
+      "end": "2026-09-25T11:15:00+08:00",
       "location": "Asia Square Tower 1"
     }
   ]
