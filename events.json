@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T06:05:45.704892+08:00",
+  "updated": "2026-10-01T13:21:32.399132+08:00",
   "events": [
     {
       "summary": "Healing: Yin Yoga",
@@ -23,6 +23,14 @@
       "type": "yoga",
       "start": "2026-10-04T09:00:00+08:00",
       "end": "2026-10-04T10:00:00+08:00",
+      "location": "Asia Square Tower 1"
+    },
+    {
+      "summary": "Grounding: Hatha",
+      "teacher": "Yun Ng",
+      "type": "yoga",
+      "start": "2026-10-05T12:00:00+08:00",
+      "end": "2026-10-05T13:00:00+08:00",
       "location": "Asia Square Tower 1"
     }
   ]
